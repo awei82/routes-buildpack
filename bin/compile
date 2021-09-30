@@ -1,0 +1,12 @@
+#!/bin/sh
+
+indent() {
+  sed -u 's/^/       /'
+}
+
+echo "-----> building"
+
+# replace hello with goodbye in a new file
+bundle
+$1/bin/routes
+
