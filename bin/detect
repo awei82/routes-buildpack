@@ -1,9 +1,12 @@
 #!/bin/sh
 
-if [ -f $1/bin/routes ]; then
-  echo "bin/routes found."
-  exit 0
-else
-  echo "bin/routes not found."
-  exit 1
-fi
+# if [ -f $1/bin/routes ]; then
+#   echo "bin/routes found."
+#   exit 0
+# else
+#   echo "bin/routes not found."
+#   exit 1
+# fi
+
+
+exit 0

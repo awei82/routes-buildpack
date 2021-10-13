@@ -15,6 +15,8 @@ echo $bp_dir
 export GEM_HOME=$bp_dir/vendor/gems
 export GEM_PATH=$bp_dir/vendor/gems
 export PATH=$GEM_PATH:$PATH
+echo $PATH
+
 
 echo "---> Install bundler"
 gem install 'bundler'
