@@ -6,8 +6,11 @@ indent() {
 
 echo "-----> building"
 
+# https://github.com/dmathieu/heroku-buildpack-submodules/blob/main/bin/compile
 export BUILD_DIR=$1
+echo $BUILD_DIR
 bp_dir=$(cd $(dirname $0); cd ..; pwd)
+echo $bp_dir
 
 export GEM_HOME=$bp_dir/vendor/gems
 export GEM_PATH=$bp_dir/vendor/gems
@@ -16,6 +19,6 @@ echo "---> Install bundler"
 gem install 'bundler'
 
 echo "---> Install gems"
-bundler install
+bundle install
 
 $1/bin/routes
