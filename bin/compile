@@ -7,7 +7,7 @@ indent() {
 echo "-----> building"
 
 # replace hello with goodbye in a new file
-gem install bundler
-bundle
+gem install table_print
+echo "installed table_print"
 $1/bin/routes
 
