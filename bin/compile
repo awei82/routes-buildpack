@@ -4,10 +4,16 @@ indent() {
   sed -u 's/^/       /'
 }
 
-echo "xxxxx> building"
+echo "-----> building"
 
-# replace hello with goodbye in a new file
-gem install table_print
-echo "installed table_print"
+export BUILD_DIR=$1
+bp_dir=$(cd $(dirname $0); cd ..; pwd)
+
+export GEM_HOME=$bp_dir/vendor/gems
+export GEM_PATH=$bp_dir/vendor/gems
+
+echo "---> table_print"
+gem install 'table_print'
+
 $1/bin/routes
 
