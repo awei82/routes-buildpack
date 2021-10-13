@@ -4,7 +4,7 @@ indent() {
   sed -u 's/^/       /'
 }
 
-echo "-----> building"
+echo "xxxxx> building"
 
 # replace hello with goodbye in a new file
 gem install table_print
