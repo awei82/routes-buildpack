@@ -12,8 +12,10 @@ bp_dir=$(cd $(dirname $0); cd ..; pwd)
 export GEM_HOME=$bp_dir/vendor/gems
 export GEM_PATH=$bp_dir/vendor/gems
 
-echo "---> table_print"
-gem install 'table_print'
+echo "---> Install bundler"
+gem install 'bundler'
+
+echo "---> Install gems"
+bundler install
 
 $1/bin/routes
-
