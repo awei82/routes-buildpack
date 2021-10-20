@@ -1,9 +1,11 @@
 #!/bin/sh
 
-if [ -f $1/bin/routes ]; then
-  echo "bin/routes found."
-  exit 0
-else
-  echo "bin/routes not found."
-  exit 1
+#!/usr/bin/env bash
+set -eo pipefail
+
+if [[ ! -f Gemfile ]] && [[ ! -f bin/routes ]]; then
+   exit 100
 fi
+
+echo "Gemfile and bin/routes found."
+exit 0

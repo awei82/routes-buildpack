@@ -1,27 +1,66 @@
-#!/bin/sh
+# #!/bin/sh
 
-indent() {
-  sed -u 's/^/       /'
-}
+# indent() {
+#   sed -u 's/^/       /'
+# }
 
-echo "-----> building"
+# echo "-----> building"
 
-# https://github.com/dmathieu/heroku-buildpack-submodules/blob/main/bin/compile
-export BUILD_DIR=$1
-echo $BUILD_DIR
-bp_dir=$(cd $(dirname $0); cd ..; pwd)
-echo $bp_dir
+# # https://github.com/dmathieu/heroku-buildpack-submodules/blob/main/bin/compile
+# export BUILD_DIR=$1
+# echo $BUILD_DIR
+# bp_dir=$(cd $(dirname $0); cd ..; pwd)
+# echo $bp_dir
 
-export GEM_HOME=$bp_dir/vendor/gems
-export GEM_PATH=$bp_dir/vendor/gems
-# export PATH=$GEM_PATH:$PATH
-# echo $PATH
+# export GEM_HOME=$bp_dir/vendor/gems
+# export GEM_PATH=$bp_dir/vendor/gems
+# # export PATH=$GEM_PATH:$PATH
+# # echo $PATH
 
 
-echo "---> Install bundler"
-gem install 'bundler'
+# echo "---> Install bundler"
+# gem install 'bundler'
 
-echo "---> Install gems"
+# echo "---> Install gems"
+# bundle install
+
+# $1/bin/routes
+
+
+# https://buildpacks.io/docs/buildpack-author-guide/create-buildpack/make-app-runnable/
+
+
+#!/usr/bin/env bash
+set -eo pipefail
+
+echo "---> Ruby Buildpack"
+
+# 1. GET ARGS
+layersdir=$1
+
+# 2. CREATE THE LAYER DIRECTORY
+rubylayer="$layersdir"/ruby
+mkdir -p "$rubylayer"
+
+# 3. DOWNLOAD RUBY
+echo "---> Downloading and extracting Ruby"
+ruby_url=https://s3-external-1.amazonaws.com/heroku-buildpack-ruby/heroku-18/ruby-3.0.2.tgz
+wget -q -O - "$ruby_url" | tar -xzf - -C "$rubylayer"
+
+# 4. MAKE RUBY AVAILABLE DURING LAUNCH
+echo -e 'launch = true' > "$layersdir/ruby.toml"
+
+# 5. MAKE RUBY AVAILABLE TO THIS SCRIPT
+export PATH="$rubylayer"/bin:$PATH
+export LD_LIBRARY_PATH=${LD_LIBRARY_PATH:+${LD_LIBRARY_PATH}:}"$rubylayer/lib"
+
+# 6. INSTALL BUNDLER
+echo "---> Installing bundler"
+gem install bundler -N
+
+# 7. INSTALL GEMS
+echo "---> Installing gems"
 bundle install
 
-$1/bin/routes
+# 8. GENERATE ROUTES
+bundle exec bin/routes
