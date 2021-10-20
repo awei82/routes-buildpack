@@ -30,8 +30,7 @@
 # https://buildpacks.io/docs/buildpack-author-guide/create-buildpack/make-app-runnable/
 
 
-#!/usr/bin/env bash
-set -eo pipefail
+#!/bin/sh
 
 echo "---> Ruby Buildpack"
 
