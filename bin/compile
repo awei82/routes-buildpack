@@ -62,4 +62,4 @@ echo "---> Installing gems"
 bundle install
 
 # 8. GENERATE ROUTES
-bundle exec bin/routes
+bundle exec "$layersdir"/bin/routes
